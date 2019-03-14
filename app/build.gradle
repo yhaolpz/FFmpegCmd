@@ -9,26 +9,26 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//        externalNativeBuild {
-//            cmake {
-////                cppFlags " -O3 -Wall -pipe " +
-////                        " -ffast-math " +
-////                        " -fstrict-aliasing -Werror=strict-aliasing" +
-////                        " -Wa,--noexecstack " +
-////                        " -DANDROID -DNDEBUG"
-//
-//                cFlags " -O3 -Wall -pipe " +
-//                        " -ffast-math " +
-//                        " -fstrict-aliasing -Werror=strict-aliasing" +
-//                        " -Wa,--noexecstack " +
-//                        " -DANDROID -DNDEBUG"
-//
-//                arguments  "-DANDROID_PIE=OFF",
-//                        "-DANDROID_ARM_NEON=TRUE",
-//                        "-DANDROID_PLATFORM=android-14"
-//
-//            }
-//        }
+        externalNativeBuild {
+            cmake {
+                cppFlags " -O3 -Wall -pipe " +
+                        " -ffast-math " +
+                        " -fstrict-aliasing -Werror=strict-aliasing" +
+                        " -Wa,--noexecstack " +
+                        " -DANDROID -DNDEBUG"
+
+                cFlags " -O3 -Wall -pipe " +
+                        " -ffast-math " +
+                        " -fstrict-aliasing -Werror=strict-aliasing" +
+                        " -Wa,--noexecstack " +
+                        " -DANDROID -DNDEBUG"
+
+                arguments  "-DANDROID_PIE=OFF",
+                        "-DANDROID_ARM_NEON=TRUE",
+                        "-DANDROID_PLATFORM=android-14"
+
+            }
+        }
         ndk {
             abiFilters "armeabi-v7a"
         }
@@ -39,11 +39,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-//    externalNativeBuild {
-//        cmake {
-//            path "CMakeLists.txt"
-//        }
-//    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
 
     sourceSets.main {
         jniLibs.srcDirs 'libs'
