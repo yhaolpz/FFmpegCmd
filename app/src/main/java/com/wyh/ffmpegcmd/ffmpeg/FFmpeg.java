@@ -4,10 +4,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.jni.FFmpegJni;
 import com.wyh.ffmpegcmd.App;
 import com.wyh.ffmpegcmd.AppExecutor;
 import com.wyh.ffmpegcmd.PermissionHelper;
-import com.wyh.ffmpegcmd.ffmpeg.Jni.FFmpegJni;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -24,7 +24,7 @@ public enum FFmpeg {
     }
 
     private final ExecutorService mExecutor =
-            Executors.newSingleThreadExecutor(new AppExecutor.ExecutorsThreadFactory("ffmpeg"));
+            Executors.newSingleThreadExecutor(new AppExecutor.ExecutorsThreadFactory("ffmpeg-"));
 
     private volatile boolean mIsRunning = false;
 
@@ -52,7 +52,7 @@ public enum FFmpeg {
                 mIsRunning = true;
                 int ret = 1;
                 try {
-                    ret = FFmpegJni.excute(cmd);
+                    ret = FFmpegJni.run(cmd);
                     done(callback, ret != 1);
                 } catch (Exception e) {
                     done(callback, ret != 1);

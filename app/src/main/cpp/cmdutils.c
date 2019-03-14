@@ -134,7 +134,7 @@ void register_exit(void (*cb)(int ret))
 
 int exit_program(int ret)
 {
-    return ret;
+   return ret;
 }
 
 double parse_number_or_die(const char *context, const char *numstr, int type,
@@ -770,6 +770,8 @@ int split_commandline(OptionParseContext *octx, int argc, char *argv[],
             dashdash = optindex;
             continue;
         }
+        av_log(NULL, AV_LOG_DEBUG, "Reading option dashdash = '%d' ...", dashdash);
+
         /* unnamed group separators, e.g. output filename */
         if (opt[0] != '-' || !opt[1] || dashdash+1 == optindex) {
             finish_group(octx, 0, opt);
@@ -781,7 +783,7 @@ int split_commandline(OptionParseContext *octx, int argc, char *argv[],
 #define GET_ARG(arg)                                                           \
 do {                                                                           \
     (arg) = argv[optindex++];                                                    \
-    if (!arg) {                                                                \
+    if (!(arg)) {                                                                \
         av_log(NULL, AV_LOG_ERROR, "Missing argument for option '%s'.\n", opt);\
         return AVERROR(EINVAL);                                                \
     }                                                                          \
