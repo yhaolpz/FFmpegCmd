@@ -1,4 +1,4 @@
-package com.wyh.ffmpegcmd;
+package com.wyh.ffmpegcmd.common;
 
 import android.Manifest;
 import android.content.Context;

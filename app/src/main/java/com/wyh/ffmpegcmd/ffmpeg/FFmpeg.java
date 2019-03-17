@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.wyh.ffmpegcmd.App;
+import com.wyh.ffmpegcmd.common.App;
 import com.wyh.ffmpegcmd.AppExecutor;
-import com.wyh.ffmpegcmd.PermissionHelper;
+import com.wyh.ffmpegcmd.common.PermissionHelper;
 
 import java.util.List;
 import java.util.Objects;

@@ -5,9 +5,17 @@ import java.util.List;
 
 /**
  * Created by wyh on 2019/3/14.
+ * 音频编辑
  */
 public class FFmpegAudio {
 
+    /**
+     * 混音
+     *
+     * @param srcAudioPath  原音
+     * @param audioPathList 目标音
+     * @param outputPath    输出目录
+     */
     public static void mixAudio(String srcAudioPath, List<String> audioPathList, String outputPath, Callback callback) {
         ArrayList<String> commandList = new ArrayList<>();
         commandList.add("ffmpeg");
