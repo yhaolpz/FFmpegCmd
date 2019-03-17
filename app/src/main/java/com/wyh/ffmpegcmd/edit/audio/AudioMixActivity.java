@@ -22,6 +22,7 @@ import com.wyh.ffmpegcmd.ffmpeg.Callback;
 import com.wyh.ffmpegcmd.ffmpeg.FFmpegAudio;
 import com.wyh.ffmpegcmd.util.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class AudioMixActivity extends BaseEditActivity {
         showLoadingDialog();
 
         String dir = getCacheDir().getAbsolutePath();
-        final String outputAudio = dir + "output.mp3";
+        final String outputAudio = dir + File.separator + "output.mp3";
 
         List<String> audioPaths = new ArrayList<>();
         for (int i = 0; i < mediaFileList.size(); i++) {
@@ -104,7 +105,7 @@ public class AudioMixActivity extends BaseEditActivity {
             @Override
             public void onSuccess() {
                 dismissLoadingDialog();
-                playAudio(outputAudio);
+//                playAudio(outputAudio);
             }
 
             @Override

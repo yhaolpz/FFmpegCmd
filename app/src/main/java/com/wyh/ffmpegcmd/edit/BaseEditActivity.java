@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -67,7 +69,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
     protected abstract void onMenuClick(int order);
 
     protected void pickAudio() {
-        pickMedia("audio/*", REQUEST_CODE_PICK_AUDIO);
+        pickMedia("audio/mp3", REQUEST_CODE_PICK_AUDIO);
     }
 
     protected void pickVideo() {
@@ -151,8 +153,11 @@ public abstract class BaseEditActivity extends AppCompatActivity {
     protected void play(String path, String filter) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         File file = new File(path);
-        Uri uri = Uri.fromFile(file);
-        intent.setDataAndType(uri, filter);
+//        Uri uri = Uri.fromFile(file);
+        Uri contentUri = FileProvider.getUriForFile(this, "com.wyh.ffmpegcmd", file);
+        intent.setDataAndType(contentUri, filter);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivity(intent);
     }
 
