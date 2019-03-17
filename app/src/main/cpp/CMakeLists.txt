@@ -33,45 +33,13 @@ set(source_files
         ${pwd_dir}/ffmpeg_filter.c
         )
 
-#其他配置
-add_library(libavcodec SHARED IMPORTED)
-set_target_properties(libavcodec PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libavcodec-57.so)
-
-add_library(libavdevice SHARED IMPORTED)
-set_target_properties(libavdevice PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libavdevice-57.so)
-
-add_library(libavfilter SHARED IMPORTED)
-set_target_properties(libavfilter PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libavfilter-6.so)
-
-add_library(libavformat SHARED IMPORTED)
-set_target_properties(libavformat PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libavformat-57.so)
-
-add_library(libavutil SHARED IMPORTED)
-set_target_properties(libavutil PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libavutil-55.so)
-
-add_library(libswresample SHARED IMPORTED)
-set_target_properties(libswresample PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libswresample-2.so)
-
-add_library(libswscale SHARED IMPORTED)
-set_target_properties(libswscale PROPERTIES IMPORTED_LOCATION
-        ${ffmpeg_output_shared_lib}/libswscale-4.so)
-
+add_library(libffmpeg SHARED IMPORTED)
+set_target_properties(libffmpeg PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_output_shared_lib}/libffmpeg.so)
 
 set(link_lib
         ${link_lib}
-        libavcodec
-        libavdevice
-        libavfilter
-        libavformat
-        libavutil
-        libswresample
-        libswscale
+        libffmpeg
         )
 
 #以下为固定语法，无需修改

@@ -12,13 +12,13 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags " -O3 -Wall -pipe " +
-                        " -ffast-math " +
+                        " -ffast-math -fPIC" +
                         " -fstrict-aliasing -Werror=strict-aliasing" +
                         " -Wa,--noexecstack " +
                         " -DANDROID -DNDEBUG"
 
                 cFlags " -O3 -Wall -pipe " +
-                        " -ffast-math " +
+                        " -ffast-math -fPIC" +
                         " -fstrict-aliasing -Werror=strict-aliasing" +
                         " -Wa,--noexecstack " +
                         " -DANDROID -DNDEBUG"

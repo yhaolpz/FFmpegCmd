@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.wyh.ffmpegcmd.App;
 import com.wyh.ffmpegcmd.AppExecutor;
 import com.wyh.ffmpegcmd.PermissionHelper;
-import com.wyh.ffmpegcmd.ffmpeg.Jni.FFmpegJni;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,10 +16,10 @@ import java.util.concurrent.Executors;
 /**
  * Created by wyh on 2019/3/13.
  */
-public enum FFmpeg {
+enum FFmpeg {
     instance;
 
-    public static FFmpeg getInstance() {
+    static FFmpeg getInstance() {
         return instance;
     }
 
@@ -29,17 +28,17 @@ public enum FFmpeg {
 
     private volatile boolean mIsRunning = false;
 
-    public boolean isRunning() {
+    boolean isRunning() {
         return mIsRunning;
     }
 
-    public void run(@NonNull List<String> list, @Nullable final Callback callback) {
+    void run(@NonNull List<String> list, @Nullable final Callback callback) {
         String[] commands = new String[list.size()];
         list.toArray(commands);
         run(commands, callback);
     }
 
-    public void run(@NonNull final String[] cmd, @Nullable final Callback callback) {
+    void run(@NonNull final String[] cmd, @Nullable final Callback callback) {
         if (!PermissionHelper.hasWriteAndReadStoragePermission(App.get())) {
             AppExecutor.executeMain(new Runnable() {
                 @Override
@@ -59,7 +58,7 @@ public enum FFmpeg {
                 mIsRunning = true;
                 int ret = 1;
                 try {
-                    ret = FFmpegJni.excute(cmd);
+                    ret = FFmpegJni.execute(cmd);
                     done(callback, ret != 1);
                 } catch (Exception e) {
                     done(callback, ret != 1);

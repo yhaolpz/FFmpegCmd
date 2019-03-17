@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.wyh.ffmpegcmd.ffmpeg.Callback;
-import com.wyh.ffmpegcmd.ffmpeg.FFmpeg;
 import com.wyh.ffmpegcmd.ffmpeg.FFmpegAudio;
 
 import java.util.ArrayList;

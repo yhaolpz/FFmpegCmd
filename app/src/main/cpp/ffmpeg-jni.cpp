@@ -7,7 +7,7 @@
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_Jni_FFmpegJni_excute(JNIEnv *env, jclass type, jobjectArray commands) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegJni_execute(JNIEnv *env, jclass type, jobjectArray commands) {
 
     int argc = env->GetArrayLength(commands);
     char *argv[argc];
