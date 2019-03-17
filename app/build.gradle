@@ -23,7 +23,7 @@ android {
                         " -Wa,--noexecstack " +
                         " -DANDROID -DNDEBUG"
 
-                arguments  "-DANDROID_PIE=OFF",
+                arguments "-DANDROID_PIE=OFF",
                         "-DANDROID_ARM_NEON=TRUE",
                         "-DANDROID_PLATFORM=android-14"
 

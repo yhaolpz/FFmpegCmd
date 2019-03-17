@@ -1,5 +1,6 @@
 package com.wyh.ffmpegcmd.edit.audio;
 
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -17,6 +18,15 @@ import java.util.List;
  */
 public class AudioMixFragment extends Fragment {
     private static final String TAG = "AudioMixFragment";
+
+    public static AudioMixFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        AudioMixFragment fragment = new AudioMixFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
 

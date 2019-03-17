@@ -7,13 +7,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".common.App"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".common.App"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".edit.video.VideoPuzzActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity android:name=".edit.audio.AudioMixActivity"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

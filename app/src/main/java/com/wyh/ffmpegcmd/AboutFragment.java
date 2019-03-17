@@ -13,6 +13,8 @@ import android.view.ViewGroup;
  */
 public class AboutFragment extends Fragment {
     public static final String TAG = "AboutFragment";
+    public static final String TITLE = "About";
+
 
     public static AboutFragment newInstance() {
 

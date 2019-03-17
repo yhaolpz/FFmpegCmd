@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private Fragment mAudioFragment;
     private Fragment mVideoFragment;
     private Fragment mAboutFragment;
+    private Fragment mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,27 +59,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
             mVideoFragment = VideoFragment.newInstance();
         }
         if (mAboutFragment == null) {
-            mAboutFragment = AudioFragment.newInstance();
+            mAboutFragment = AboutFragment.newInstance();
         }
-
         changeFragment(0);
-
-        requestWritePermissions();
-    }
-
-    private void requestWritePermissions() {
-        int hasWritePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (hasWritePermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 111);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 111:
-                break;
-        }
     }
 
 
@@ -97,19 +81,39 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void changeFragment(int position) {
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        ActionBar bar = getSupportActionBar();
         switch (position) {
             case 1:
-                trans.replace(R.id.frameLayout, mVideoFragment, VideoFragment.TAG);
+                switchFragment(mVideoFragment, VideoFragment.TAG);
+                bar.setTitle(VideoFragment.TITLE);
                 break;
             case 2:
-                trans.replace(R.id.frameLayout, mAboutFragment, AboutFragment.TAG);
+                switchFragment(mAboutFragment, AboutFragment.TAG);
+                bar.setTitle(AboutFragment.TITLE);
                 break;
             case 0:
             default:
-                trans.replace(R.id.frameLayout, mAudioFragment, AudioFragment.TAG);
+                switchFragment(mAudioFragment, AudioFragment.TAG);
+                bar.setTitle(AudioFragment.TITLE);
                 break;
         }
-        trans.commitAllowingStateLoss();
     }
+
+
+    private void switchFragment(Fragment targetFragment, String tag) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (!targetFragment.isAdded()) {
+            if (mCurrentFragment != null) {
+                transaction.hide(mCurrentFragment);
+            }
+            transaction.add(R.id.frameLayout, targetFragment, tag).commit();
+        } else {
+            if (mCurrentFragment != null) {
+                transaction.hide(mCurrentFragment);
+            }
+            transaction.show(targetFragment).commit();
+        }
+        mCurrentFragment = targetFragment;
+    }
+
 }
