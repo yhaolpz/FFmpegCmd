@@ -165,7 +165,10 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void showSaveDoneAndPlayDialog(final String outputAudio,final boolean video) {
+    protected void showSaveDoneAndPlayDialog(final String outputAudio, final boolean video) {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
         final SecureAlertDialog alertDialog = new SecureAlertDialog(this);
         alertDialog.setTitle("成功");
         alertDialog.setMessage("已保存至：" + outputAudio);
@@ -183,7 +186,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
                         dialog1.dismiss();
                         if (video) {
                             playVideo(outputAudio);
-                        }else{
+                        } else {
                             playAudio(outputAudio);
                         }
                     }
@@ -207,6 +210,9 @@ public abstract class BaseEditActivity extends AppCompatActivity {
      */
     @MainThread
     protected void setLoadingText(String text) {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
         initLoadingDialog();
         mProgressDialog.setMessage(text);
         if (!mProgressDialog.isShowing()) {
@@ -219,6 +225,9 @@ public abstract class BaseEditActivity extends AppCompatActivity {
      */
     @MainThread
     protected void showLoadingDialog() {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
         initLoadingDialog();
         if (!mProgressDialog.isShowing()) {
             mProgressDialog.show();
@@ -230,6 +239,9 @@ public abstract class BaseEditActivity extends AppCompatActivity {
      */
     @MainThread
     protected void dismissLoadingDialog() {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
