@@ -1,8 +1,10 @@
 package com.wyh.ffmpegcmd.edit;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,7 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.wyh.ffmpegcmd.BuildConfig;
 import com.wyh.ffmpegcmd.R;
+import com.wyh.ffmpegcmd.common.App;
+import com.wyh.ffmpegcmd.common.SecureAlertDialog;
 import com.wyh.ffmpegcmd.common.SecureProgressDialog;
 import com.wyh.ffmpegcmd.util.FileUtil;
 
@@ -153,12 +158,47 @@ public abstract class BaseEditActivity extends AppCompatActivity {
     protected void play(String path, String filter) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         File file = new File(path);
-//        Uri uri = Uri.fromFile(file);
-        Uri contentUri = FileProvider.getUriForFile(this, "com.wyh.ffmpegcmd", file);
+        Uri contentUri = FileProvider.getUriForFile(App.get(), BuildConfig.APPLICATION_ID + ".fileProvider", file);
         intent.setDataAndType(contentUri, filter);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivity(intent);
+    }
+
+    protected void showSaveDoneAndPlayDialog(final String outputAudio,final boolean video) {
+        final SecureAlertDialog alertDialog = new SecureAlertDialog(this);
+        alertDialog.setTitle("成功");
+        alertDialog.setMessage("已保存至：" + outputAudio);
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,
+                "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        dialog1.dismiss();
+                    }
+                });
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                "播放", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        dialog1.dismiss();
+                        if (video) {
+                            playVideo(outputAudio);
+                        }else{
+                            playAudio(outputAudio);
+                        }
+                    }
+                });
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
+                alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.RED);
+            }
+        });
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.create();
+        alertDialog.show();
+
     }
 
 

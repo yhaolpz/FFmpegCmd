@@ -5,13 +5,34 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 
+import java.io.File;
 import java.net.URISyntaxException;
 
 /**
  * Created by wyh on 2019/3/17.
  */
 public class FileUtil {
-    String dir = Environment.getExternalStorageDirectory().getPath();
+    public static final String ROOT_DIR = Environment.getExternalStorageDirectory().getPath() +
+            File.separator + "FFmpegCmd";
+    public static final String OUTPUT_DIR = ROOT_DIR + File.separator + "Output";
+    public static final String OUTPUT_AUDIO_DIR = OUTPUT_DIR + File.separator + "audio";
+    public static final String OUTPUT_VIDEO_DIR = OUTPUT_DIR + File.separator + "video";
+    public static final String CACHE_DIR = ROOT_DIR + File.separator + "cache";
+
+    static {
+        mkDirs(ROOT_DIR);
+        mkDirs(OUTPUT_DIR);
+        mkDirs(OUTPUT_AUDIO_DIR);
+        mkDirs(OUTPUT_VIDEO_DIR);
+        mkDirs(CACHE_DIR);
+    }
+
+    public static void mkDirs(String dirPath) {
+        File file = new File(dirPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+    }
 
 
     public static String getPath(Context context, Uri uri) {
