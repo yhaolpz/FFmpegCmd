@@ -12,7 +12,7 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppThemeNoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -25,18 +25,20 @@
         </provider>
 
         <activity
-            android:name=".edit.video.VideoPuzzActivity"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity
-            android:name=".edit.audio.AudioMixActivity"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name=".edit.audio.AudioMixActivity" />
+
+        <activity android:name=".edit.video.VideoPuzzActivity" />
+        <activity android:name=".edit.video.VideoWaterMarkActivity" />
     </application>
 
 </manifest>
