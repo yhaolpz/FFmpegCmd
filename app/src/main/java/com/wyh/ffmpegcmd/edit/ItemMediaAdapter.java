@@ -76,7 +76,7 @@ public class ItemMediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         void bind(MediaFile mediaFile, int pos) {
             if (mediaFile.isVideo()) {
-                Glide.with(mIvMedia).load(mediaFile.getThumb()).into(mIvMedia);
+                Glide.with(mIvMedia).load(R.drawable.video_black).into(mIvMedia);
             } else {
                 Glide.with(mIvMedia).load(R.drawable.audio_black).into(mIvMedia);
             }

@@ -16,6 +16,7 @@ import com.wyh.ffmpegcmd.edit.ItemMediaAdapter;
 import com.wyh.ffmpegcmd.edit.MediaFile;
 import com.wyh.ffmpegcmd.ffmpeg.Callback;
 import com.wyh.ffmpegcmd.ffmpeg.FFmpegAudio;
+import com.wyh.ffmpegcmd.ffmpeg.FFmpegVideo;
 import com.wyh.ffmpegcmd.util.DateUtil;
 import com.wyh.ffmpegcmd.util.FileUtil;
 import com.wyh.ffmpegcmd.util.SnackBarUtil;
@@ -112,7 +113,5 @@ public class AudioMixActivity extends BaseEditActivity {
                 SnackBarUtil.showError(mRoot, "合成失败");
             }
         });
-
-
     }
 }
