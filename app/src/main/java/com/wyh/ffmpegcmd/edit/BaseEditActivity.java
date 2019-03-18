@@ -195,7 +195,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
                 alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.RED);
             }
         });
-        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.create();
         alertDialog.show();
 

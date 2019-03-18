@@ -18,19 +18,19 @@ public class FFmpegVideo {
         commandList.add("-filter_complex");
         if (videoPathList.size() == 2) {
             commandList.add("[0:v]pad=iw*2:ih[int];[int][1:v]overlay=W/2:0[vid]");
-            commandList.add("-map");
-            commandList.add("[vid]");
-            commandList.add("-c:v");
-            commandList.add("libx264");
-            commandList.add("-crf");
-            commandList.add("23");
-            commandList.add("-preset");
-            commandList.add("veryfast");
         } else if (videoPathList.size() == 3) {
-            commandList.add("[0:v]pad=iw*2:ih*2[a];[a][1:v]overlay=w[b];[b][2:v]overlay=0:h");
+            commandList.add("[0:v]pad=iw*2:ih*2[a];[a][1:v]overlay=w[b];[b][2:v]overlay=0:h[vid]");
         } else if (videoPathList.size() == 4) {
-            commandList.add("[0:v]pad=iw*2:ih*2[a];[a][1:v]overlay=w[b];[b][2:v]overlay=0:h[c];[c][3:v]overlay=w:h");
+            commandList.add("[0:v]pad=iw*2:ih*2[a];[a][1:v]overlay=w[b];[b][2:v]overlay=0:h[c];[c][3:v]overlay=w:h[vid]");
         }
+        commandList.add("-map");
+        commandList.add("[vid]");
+        commandList.add("-c:v");
+        commandList.add("libx264");
+        commandList.add("-crf");
+        commandList.add("23");
+        commandList.add("-preset");
+        commandList.add("veryfast");
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }

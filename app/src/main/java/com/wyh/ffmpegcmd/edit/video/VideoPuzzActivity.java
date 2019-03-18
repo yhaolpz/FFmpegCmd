@@ -54,8 +54,8 @@ public class VideoPuzzActivity extends BaseEditActivity {
     @Override
     protected void onMenuClick(int order) {
         if (order == 0) {
-            if (mMediaFileList.size() == 2) {
-                SnackBarUtil.showError(mRoot, "目前只支持两路视频拼接");
+            if (mMediaFileList.size() == 4) {
+                SnackBarUtil.showError(mRoot, "最多支持四路视频拼接");
                 return;
             }
             pickVideo();
