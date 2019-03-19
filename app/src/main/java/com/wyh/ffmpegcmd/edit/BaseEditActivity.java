@@ -69,7 +69,17 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         requestWritePermissions();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        menu.clear();
+        createOptionsMenu(menu);
+        return true;
+    }
+
     protected abstract String getEditTitle();
+
+    protected abstract void createOptionsMenu(Menu menu);
 
     protected abstract void onMenuClick(int order);
 

@@ -75,13 +75,10 @@ public class VideoPuzzActivity extends BaseEditActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        menu.clear();
+    protected void createOptionsMenu(Menu menu) {
         menu.add("添加视频");
         menu.add("删除视频");
         menu.add("开始");
-        return true;
     }
 
 

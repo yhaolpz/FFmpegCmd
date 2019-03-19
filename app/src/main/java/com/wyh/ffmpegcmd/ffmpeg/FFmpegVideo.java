@@ -34,4 +34,35 @@ public class FFmpegVideo {
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }
+
+    /**
+     * @param pos 0:左上；1右上；2左下；3右下
+     */
+    public static void addWaterMark(String srcVideoPath, String watermarkImgPath, int pos, String outputPath, Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        commandList.add("-i");
+        commandList.add(watermarkImgPath);
+        commandList.add("-filter_complex");
+
+        switch (pos) {
+            case 0:
+                commandList.add("overlay=10:10");
+                break;
+            case 1:
+                commandList.add("overlay=main_w-overlay_w-10:10");
+                break;
+            case 2:
+                commandList.add("overlay=0:main_h-overlay_h-10");
+                break;
+            case 3:
+                commandList.add("overlay=main_w-overlay_w-10:main_h-overlay_h-10");
+                break;
+        }
+
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
 }

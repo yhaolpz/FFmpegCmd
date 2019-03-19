@@ -1,26 +1,21 @@
 package com.wyh.ffmpegcmd.edit.video;
 
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.Menu;
 
 import com.wyh.ffmpegcmd.R;
 import com.wyh.ffmpegcmd.edit.BaseEditActivity;
 
-/**
- * Created by wyh on 2019/3/18.
- */
-public class VideoWaterMarkActivity extends BaseEditActivity {
-    private static final String TAG = "VideoWaterMarkActivity";
-    public static final String TITLE = "加水印";
+public class VideoNoWaterMarkActivity extends BaseEditActivity {
+    private static final String TAG = "VideoNoWaterMarkActivity";
+    public static final String TITLE = "去水印";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_mark);
+        setContentView(R.layout.activity_video_no_water_mark);
     }
-
-
 
     @Override
     protected String getEditTitle() {
