@@ -50,6 +50,10 @@ public class VideoFragment extends Fragment {
                 VideoWaterMarkActivity.TITLE, VideoWaterMarkActivity.class));
         mEditItemList.add(new EditItem(R.drawable.ic_un_logo_black_24dp,
                 VideoNoWaterMarkActivity.TITLE, VideoNoWaterMarkActivity.class));
+        mEditItemList.add(new EditItem(R.drawable.ic_demux_audio_black_24dp,
+                AudioDeMuxActivity.TITLE, AudioDeMuxActivity.class));
+        mEditItemList.add(new EditItem(R.drawable.ic_demux_video_black_24dp,
+                VideoDeMuxActivity.TITLE, VideoDeMuxActivity.class));
     }
 
     @Nullable

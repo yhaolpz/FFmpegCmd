@@ -124,4 +124,28 @@ public class FFmpegVideo {
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }
+
+    public static void demuxAudio(String srcVideoPath, String outputPath, Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        commandList.add("-acodec");
+        commandList.add("copy");
+        commandList.add("-vn");
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
+
+    public static void demuxVideo(String srcVideoPath, String outputPath, Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        commandList.add("-vcodec");
+        commandList.add("copy");
+        commandList.add("-an");
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
 }
