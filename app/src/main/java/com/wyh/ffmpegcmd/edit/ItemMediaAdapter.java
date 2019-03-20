@@ -75,10 +75,16 @@ public class ItemMediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         void bind(MediaFile mediaFile, int pos) {
-            if (mediaFile.isVideo()) {
-                Glide.with(mIvMedia).load(R.drawable.video_black).into(mIvMedia);
-            } else {
-                Glide.with(mIvMedia).load(R.drawable.audio_black).into(mIvMedia);
+            switch (mediaFile.getType()) {
+                case MediaFile.TYPE_AUDIO:
+                    Glide.with(mIvMedia).load(R.drawable.audio_black).into(mIvMedia);
+                    break;
+                case MediaFile.TYPE_VIDEO:
+                    Glide.with(mIvMedia).asBitmap().load(mediaFile.getPath()).into(mIvMedia);
+                    break;
+                case MediaFile.TYPE_IMG:
+                    Glide.with(mIvMedia).asBitmap().load(mediaFile.getPath()).into(mIvMedia);
+                    break;
             }
             mTvMediaPath.setText(mediaFile.getPath());
             mTvMediaTitle.setText(mediaFile.getName());

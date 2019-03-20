@@ -23,6 +23,7 @@
         android:layout_marginStart="20dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:singleLine="true"
         android:textColor="#000"
         android:textSize="16dp"
         android:textStyle="bold"

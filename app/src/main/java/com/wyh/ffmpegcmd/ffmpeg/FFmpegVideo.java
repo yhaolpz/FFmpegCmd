@@ -38,6 +38,7 @@ public class FFmpegVideo {
     /**
      * @param pos 0:左上；1右上；2左下；3右下
      */
+    @Deprecated
     public static void addWaterMark(String srcVideoPath, String watermarkImgPath, int pos, String outputPath, Callback callback) {
         ArrayList<String> commandList = new ArrayList<>();
         commandList.add("ffmpeg");
@@ -62,6 +63,38 @@ public class FFmpegVideo {
                 break;
         }
 
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
+
+    /**
+     * @param pos 0:左上；1右上；2左下；3右下
+     */
+    public static void addWaterMark2(String srcVideoPath, String watermarkImgPath, int pos, String outputPath, Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        commandList.add("-vf");
+        String cmd = "movie=";
+        cmd += watermarkImgPath;
+        cmd += ",scale= 100: 60[watermask]; [in] [watermask] ";
+        switch (pos) {
+            case 0:
+                cmd += "overlay=10:10";
+                break;
+            case 1:
+                cmd += "overlay=main_w-overlay_w-10:10";
+                break;
+            case 2:
+                cmd += "overlay=0:main_h-overlay_h-10";
+                break;
+            case 3:
+                cmd += "overlay=main_w-overlay_w-10:main_h-overlay_h-10";
+                break;
+        }
+        cmd += " [out]";
+        commandList.add(cmd);
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }

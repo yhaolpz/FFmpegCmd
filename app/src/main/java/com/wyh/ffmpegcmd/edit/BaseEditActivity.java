@@ -35,8 +35,9 @@ public abstract class BaseEditActivity extends AppCompatActivity {
 
     private SecureProgressDialog mProgressDialog;
     private static final int REQUEST_CODE_Permission = 1;
-    protected static final int REQUEST_CODE_PICK_AUDIO = 2;
-    protected static final int REQUEST_CODE_PICK_VIDEO = 3;
+    protected static final int REQUEST_CODE_PICK_AUDIO = MediaFile.TYPE_AUDIO;
+    protected static final int REQUEST_CODE_PICK_VIDEO = MediaFile.TYPE_VIDEO;
+    protected static final int REQUEST_CODE_PICK_IMG = MediaFile.TYPE_IMG;
 
     protected Toolbar mToolbar;
 
@@ -91,12 +92,18 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         pickMedia("video/*", REQUEST_CODE_PICK_VIDEO);
     }
 
+    protected void pickImg() {
+        pickMedia("image/*", REQUEST_CODE_PICK_IMG);
+    }
+
+
     protected void onPickFile(@NonNull MediaFile mediaFile) {
 
     }
 
     private boolean isPickFileCode(int code) {
-        return code >= REQUEST_CODE_PICK_AUDIO && code <= REQUEST_CODE_PICK_VIDEO;
+        return code == REQUEST_CODE_PICK_VIDEO || code == REQUEST_CODE_PICK_AUDIO ||
+                code == REQUEST_CODE_PICK_IMG;
     }
 
 
@@ -125,7 +132,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
                         MediaFile mediaFile = new MediaFile();
                         mediaFile.setName(fileName);
                         mediaFile.setPath(filePath);
-                        mediaFile.setVideo(requestCode == REQUEST_CODE_PICK_VIDEO);
+                        mediaFile.setType(requestCode);
                         onPickFile(mediaFile);
                     }
                 }
