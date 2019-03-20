@@ -30,7 +30,6 @@ public class AudioMixActivity extends BaseEditActivity {
 
     public static final String TITLE = "混音";
 
-    private View mRoot;
     private RecyclerView mRecyclerView;
     private ItemMediaAdapter mAdapter;
     private List<MediaFile> mMediaFileList;
@@ -40,7 +39,6 @@ public class AudioMixActivity extends BaseEditActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_mix);
         mRecyclerView = findViewById(R.id.recycleView);
-        mRoot = findViewById(R.id.root);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMediaFileList = new ArrayList<>();
         mAdapter = new ItemMediaAdapter(mMediaFileList);

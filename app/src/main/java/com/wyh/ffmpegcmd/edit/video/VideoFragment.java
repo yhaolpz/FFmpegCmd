@@ -48,6 +48,8 @@ public class VideoFragment extends Fragment {
                 VideoPuzzActivity.TITLE, VideoPuzzActivity.class));
         mEditItemList.add(new EditItem(R.drawable.ic_video_watermark_black_24dp,
                 VideoWaterMarkActivity.TITLE, VideoWaterMarkActivity.class));
+        mEditItemList.add(new EditItem(R.drawable.ic_un_logo_black_24dp,
+                VideoNoWaterMarkActivity.TITLE, VideoNoWaterMarkActivity.class));
     }
 
     @Nullable

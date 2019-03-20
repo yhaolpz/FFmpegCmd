@@ -29,7 +29,6 @@ public class VideoPuzzActivity extends BaseEditActivity {
 
     public static final String TITLE = "视频拼图";
 
-    private View mRoot;
     private RecyclerView mRecyclerView;
     private ItemMediaAdapter mAdapter;
     private List<MediaFile> mMediaFileList;
@@ -39,7 +38,6 @@ public class VideoPuzzActivity extends BaseEditActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_puzz);
         mRecyclerView = findViewById(R.id.recycleView);
-        mRoot = findViewById(R.id.root);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMediaFileList = new ArrayList<>();
         mAdapter = new ItemMediaAdapter(mMediaFileList);

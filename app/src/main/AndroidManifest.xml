@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".edit.video.VideoNoWaterMarkActivity"></activity>
+        <activity android:name=".edit.video.VideoUnLogoActivity"></activity>
+        <activity android:name=".edit.video.VideoNoWaterMarkActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

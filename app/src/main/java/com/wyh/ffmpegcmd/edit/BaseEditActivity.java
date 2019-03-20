@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.wyh.ffmpegcmd.BuildConfig;
@@ -40,6 +41,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
     protected static final int REQUEST_CODE_PICK_IMG = MediaFile.TYPE_IMG;
 
     protected Toolbar mToolbar;
+    protected View mRoot;
 
 
     @Override
@@ -50,6 +52,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        mRoot = findViewById(R.id.root);
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle(getEditTitle());
         mToolbar.setOverflowIcon(getDrawable(R.drawable.ic_more_horiz_white_24dp));

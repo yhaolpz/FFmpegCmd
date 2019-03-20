@@ -98,4 +98,30 @@ public class FFmpegVideo {
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }
+
+    /**
+     * @param x 去处区域位置
+     * @param y 去处区域位置
+     * @param w 去处区域宽
+     * @param h 去处区域高
+     */
+    public static void cleanWaterMark(String srcVideoPath, int x, int y, int w, int h, String outputPath, Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        commandList.add("-filter_complex");
+        String cmd = "delogo=";
+        cmd += "x=" + x;
+        cmd += ":";
+        cmd += "y=" + y;
+        cmd += ":";
+        cmd += "w=" + w;
+        cmd += ":";
+        cmd += "h=" + h;
+        cmd += ":show=0";
+        commandList.add(cmd);
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
 }

@@ -30,7 +30,6 @@ public class VideoWaterMarkActivity extends BaseEditActivity {
     private static final String TAG = "VideoWaterMarkActivity";
     public static final String TITLE = "加水印";
 
-    private View mRoot;
     private RecyclerView mRecyclerView;
     private ItemMediaAdapter mAdapter;
     private List<MediaFile> mMediaFileList;
@@ -40,7 +39,6 @@ public class VideoWaterMarkActivity extends BaseEditActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_mark);
         mRecyclerView = findViewById(R.id.recycleView);
-        mRoot = findViewById(R.id.root);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMediaFileList = new ArrayList<>();
         mAdapter = new ItemMediaAdapter(mMediaFileList);
