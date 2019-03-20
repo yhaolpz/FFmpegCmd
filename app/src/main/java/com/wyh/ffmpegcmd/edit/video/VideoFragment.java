@@ -16,6 +16,7 @@ import com.wyh.ffmpegcmd.common.Click;
 import com.wyh.ffmpegcmd.edit.EditItem;
 import com.wyh.ffmpegcmd.edit.EditItemAdapter;
 import com.wyh.ffmpegcmd.edit.audio.AudioMixActivity;
+import com.wyh.ffmpegcmd.edit.audio.AudioTransCodeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,8 @@ public class VideoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mEditItemList = new ArrayList<>();
+        mEditItemList.add(new EditItem(R.drawable.ic_trans_code_black_24dp,
+                VideoTransCodeActivity.TITLE, VideoTransCodeActivity.class));
         mEditItemList.add(new EditItem(R.drawable.ic_video_puzz_black_24dp,
                 VideoPuzzActivity.TITLE, VideoPuzzActivity.class));
         mEditItemList.add(new EditItem(R.drawable.ic_video_watermark_black_24dp,

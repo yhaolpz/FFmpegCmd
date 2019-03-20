@@ -26,6 +26,7 @@ import com.wyh.ffmpegcmd.common.App;
 import com.wyh.ffmpegcmd.common.SecureAlertDialog;
 import com.wyh.ffmpegcmd.common.SecureProgressDialog;
 import com.wyh.ffmpegcmd.util.FileUtil;
+import com.wyh.ffmpegcmd.util.SnackBarUtil;
 
 import java.io.File;
 
@@ -277,6 +278,15 @@ public abstract class BaseEditActivity extends AppCompatActivity {
             mProgressDialog.setMessage("正在处理...");
             mProgressDialog.setCanceledOnTouchOutside(false);
         }
+    }
+
+
+    protected void showErrorSnack(String msg) {
+        SnackBarUtil.showError(mRoot, msg);
+    }
+
+    protected void showInfoSnack(String msg) {
+        SnackBarUtil.showInfo(mRoot, msg);
     }
 
 }

@@ -43,6 +43,8 @@ public class AudioFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mEditItemList = new ArrayList<>();
+        mEditItemList.add(new EditItem(R.drawable.ic_trans_code_black_24dp,
+                AudioTransCodeActivity.TITLE, AudioTransCodeActivity.class));
         mEditItemList.add(new EditItem(R.drawable.ic_call_merge_audio_24dp,
                 AudioMixActivity.TITLE, AudioMixActivity.class));
     }

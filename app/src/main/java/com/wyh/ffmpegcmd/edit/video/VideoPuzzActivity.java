@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.wyh.ffmpegcmd.R;
 import com.wyh.ffmpegcmd.edit.BaseEditActivity;
+import com.wyh.ffmpegcmd.edit.EditMediaListActivity;
 import com.wyh.ffmpegcmd.edit.ItemMediaAdapter;
 import com.wyh.ffmpegcmd.edit.MediaFile;
 import com.wyh.ffmpegcmd.ffmpeg.Callback;
@@ -25,24 +26,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class VideoPuzzActivity extends BaseEditActivity {
+public class VideoPuzzActivity extends EditMediaListActivity {
 
     public static final String TITLE = "视频拼图";
 
-    private RecyclerView mRecyclerView;
-    private ItemMediaAdapter mAdapter;
-    private List<MediaFile> mMediaFileList;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_puzz);
-        mRecyclerView = findViewById(R.id.recycleView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mMediaFileList = new ArrayList<>();
-        mAdapter = new ItemMediaAdapter(mMediaFileList);
-        mRecyclerView.setAdapter(mAdapter);
-    }
 
     @Override
     protected String getEditTitle() {
@@ -58,11 +45,7 @@ public class VideoPuzzActivity extends BaseEditActivity {
             }
             pickVideo();
         } else if (order == 1) {
-            if (mMediaFileList.size() < 1) {
-                return;
-            }
-            mMediaFileList.remove(mMediaFileList.size() - 1);
-            mAdapter.notifyItemRemoved(mMediaFileList.size());
+            deleteLastMediaFile();
         } else if (order == 2) {
             if (mMediaFileList.size() < 2) {
                 SnackBarUtil.showError(mRoot, "请添加视频");
@@ -79,13 +62,6 @@ public class VideoPuzzActivity extends BaseEditActivity {
         menu.add("开始");
     }
 
-
-    @Override
-    protected void onPickFile(@NonNull MediaFile mediaFile) {
-        super.onPickFile(mediaFile);
-        mMediaFileList.add(mediaFile);
-        mAdapter.notifyItemInserted(mMediaFileList.size());
-    }
 
     private void run(List<MediaFile> mediaFileList) {
         showLoadingDialog();

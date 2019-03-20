@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.wyh.ffmpegcmd.R;
 import com.wyh.ffmpegcmd.edit.BaseEditActivity;
+import com.wyh.ffmpegcmd.edit.EditMediaListActivity;
 import com.wyh.ffmpegcmd.edit.ItemMediaAdapter;
 import com.wyh.ffmpegcmd.edit.MediaFile;
 import com.wyh.ffmpegcmd.ffmpeg.Callback;
@@ -26,24 +27,9 @@ import java.util.List;
 /**
  * Created by wyh on 2019/3/18.
  */
-public class VideoWaterMarkActivity extends BaseEditActivity {
+public class VideoWaterMarkActivity extends EditMediaListActivity {
     private static final String TAG = "VideoWaterMarkActivity";
     public static final String TITLE = "加水印";
-
-    private RecyclerView mRecyclerView;
-    private ItemMediaAdapter mAdapter;
-    private List<MediaFile> mMediaFileList;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_mark);
-        mRecyclerView = findViewById(R.id.recycleView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mMediaFileList = new ArrayList<>();
-        mAdapter = new ItemMediaAdapter(mMediaFileList);
-        mRecyclerView.setAdapter(mAdapter);
-    }
 
 
     @Override
@@ -81,11 +67,7 @@ public class VideoWaterMarkActivity extends BaseEditActivity {
             }
             pickImg();
         } else if (order == 2) {
-            if (mMediaFileList.size() < 1) {
-                return;
-            }
-            mMediaFileList.remove(mMediaFileList.size() - 1);
-            mAdapter.notifyItemRemoved(mMediaFileList.size());
+            deleteLastMediaFile();
         } else {
             if (mMediaFileList.size() < 2) {
                 SnackBarUtil.showError(mRoot, "未选择视频/水印");
@@ -119,10 +101,4 @@ public class VideoWaterMarkActivity extends BaseEditActivity {
         }
     }
 
-    @Override
-    protected void onPickFile(@NonNull MediaFile mediaFile) {
-        super.onPickFile(mediaFile);
-        mMediaFileList.add(mediaFile);
-        mAdapter.notifyItemInserted(mMediaFileList.size());
-    }
 }

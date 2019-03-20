@@ -40,6 +40,8 @@
         <activity android:name=".edit.audio.AudioMixActivity" />
         <activity android:name=".edit.video.VideoPuzzActivity" />
         <activity android:name=".edit.video.VideoWaterMarkActivity" />
+        <activity android:name=".edit.audio.AudioTransCodeActivity" />
+        <activity android:name=".edit.video.VideoTransCodeActivity" />
     </application>
 
 </manifest>
