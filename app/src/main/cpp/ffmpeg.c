@@ -4783,7 +4783,6 @@ static void log_callback_null(void *ptr, int level, const char *fmt, va_list vl)
     if (level <= AV_LOG_WARNING) {
         XLOGE("%s", line);
     } else {
-//        XLOGD("%s", line);
         callJavaMethod(line);
     }
 }

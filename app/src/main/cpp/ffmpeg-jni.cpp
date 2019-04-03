@@ -32,14 +32,11 @@ void callJavaMethod(const char *log) {
         LOGE("---------------clazz isNULL---------------");
         return;
     }
-    jmethodID methodID = m_env->GetStaticMethodID(m_clazz, "onLog", "(Ljava/lang/String;)V");
+    jmethodID methodID = m_env->GetStaticMethodID(m_clazz, "onProgress", "(I)V");
     if (methodID == NULL) {
         LOGE("---------------methodID isNULL---------------");
         return;
     }
-    //调用该java方法
-    jstring str = NULL;
-    str = m_env->NewStringUTF(log);
-    m_env->CallStaticVoidMethod(m_clazz, methodID, str);
-//    J4A_DeleteLocalStringRef__p(m_env, &str);
+    XLOGD("%s", log);
+    m_env->CallStaticVoidMethod(m_clazz, methodID, 1);
 }

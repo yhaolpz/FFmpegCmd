@@ -27,6 +27,7 @@ set(cmake_cxx_flag_debug
 #设置要编译的源文件
 set(source_files
         ${pwd_dir}/ffmpeg-jni.cpp
+        ${pwd_dir}/ffmpeg-api.c
         ${pwd_dir}/cmdutils.c
         ${pwd_dir}/ffmpeg.c
         ${pwd_dir}/ffmpeg_opt.c
