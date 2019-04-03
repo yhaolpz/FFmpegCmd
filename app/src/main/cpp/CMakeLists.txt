@@ -31,6 +31,7 @@ set(source_files
         ${pwd_dir}/ffmpeg.c
         ${pwd_dir}/ffmpeg_opt.c
         ${pwd_dir}/ffmpeg_filter.c
+        ${pwd_dir}/j4a_base.c
         )
 
 add_library(libffmpeg SHARED IMPORTED)

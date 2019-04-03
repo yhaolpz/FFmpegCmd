@@ -8,21 +8,21 @@ import android.util.Log;
 public class Logger {
     private static final String TAG = "FFmpegCmd_Logger";
 
-    public static void logd(String tag, String message) {
+    public static void d(String tag, String message) {
         Log.d(tag, message);
     }
 
 
-    public static void loge(String tag, String message, Throwable throwable) {
+    public static void e(String tag, String message, Throwable throwable) {
         Log.e(tag, message, throwable);
     }
 
-    public static void logd(String message) {
+    public static void d(String message) {
         Log.d(TAG, message);
     }
 
 
-    public static void loge(String message, Throwable throwable) {
+    public static void e(String message, Throwable throwable) {
         Log.e(TAG, message, throwable);
     }
 }

@@ -1,5 +1,7 @@
 package com.wyh.ffmpegcmd.ffmpeg;
 
+import com.wyh.ffmpegcmd.common.Logger;
+
 /**
  * Created by wyh on 2019/3/12.
  */
@@ -15,5 +17,10 @@ public final class FFmpegJni {
     }
 
     public static native int execute(String[] commands);
+
+
+    public static void onLog(String log) {
+        Logger.d(log);
+    }
 
 }
