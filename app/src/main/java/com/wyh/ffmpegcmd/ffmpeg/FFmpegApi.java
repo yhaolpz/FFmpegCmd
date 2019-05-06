@@ -45,7 +45,4 @@ public class FFmpegApi {
 
     public static native void close();
 
-
-
-    /* MeiTu 获取视频信息方法 end*/
 }
