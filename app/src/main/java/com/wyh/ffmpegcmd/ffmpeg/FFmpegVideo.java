@@ -1,5 +1,9 @@
 package com.wyh.ffmpegcmd.ffmpeg;
 
+import android.support.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,23 +12,40 @@ import java.util.List;
  */
 public class FFmpegVideo {
 
-    private static void setBiterate(List<String> commandList) {
+    private static void setVideo(List<String> commandList) {
         commandList.add("-b:v");
-        commandList.add("1500k");
+        commandList.add("600k");
         commandList.add("-bufsize");
-        commandList.add("1500k");
+        commandList.add("600k");
         commandList.add("-maxrate");
-        commandList.add("2000k");
+        commandList.add("800k");
+
+        commandList.add("-c:v");
+        commandList.add("libx264");
+        commandList.add("-preset");
+        commandList.add("fast");
+        commandList.add("-crf");
+        commandList.add("28");
+        commandList.add("-threads");
+        commandList.add("2");
+
+        commandList.add("-y");
+        commandList.add("-f");
+        commandList.add("mp4");
+    }
+
+    private static void setAudio(List<String> commandList) {
+        commandList.add("-c:a");
+        commandList.add("aac");
+        commandList.add("-ar");
+        commandList.add("44100");
+        commandList.add("-ab");
+        commandList.add("48k");
     }
 
     private static void scale(List<String> commandList) {
         commandList.add("-vf");
         commandList.add("scale=720:720/a");
-    }
-
-    private static void setH264(List<String> commandList) {
-        commandList.add("-c:v");
-        commandList.add("libx264");
     }
 
     public static void mixVideo(List<String> videoPathList, String outputPath, Callback callback) {
@@ -44,10 +65,6 @@ public class FFmpegVideo {
         }
         commandList.add("-map");
         commandList.add("[vid]");
-        commandList.add("-crf");
-        commandList.add("23");
-        commandList.add("-preset");
-        commandList.add("veryfast");
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }
@@ -166,7 +183,7 @@ public class FFmpegVideo {
     }
 
     /**
-     * @param vertical 上下翻转
+     * 镜像翻转
      */
     public static void flipVideo(String srcVideoPath, String outputPath, boolean vertical, Callback callback) {
         ArrayList<String> commandList = new ArrayList<>();
@@ -182,4 +199,46 @@ public class FFmpegVideo {
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }
+
+
+    @StringDef({
+            Filter.filter_1,
+            Filter.filter_2,
+            Filter.filter_3,
+            Filter.filter_4
+    })
+    @Retention(RetentionPolicy.SOURCE) //滤镜
+    public @interface Filter {
+        //黑白
+        String filter_1 = "lutyuv=u=128:v=128";
+        //色彩变换
+        String filter_2 = "hue=H=2*PI*t: s=sin(2*PI*t)+1";
+        //暗角
+        String filter_3 = "vignette=PI/3";
+        //底片
+        String filter_4 = "lutyuv=y=maxval+minval-val:u=maxval+minval-val:v=maxval+minval-val";
+    }
+
+    /**
+     * 滤镜
+     */
+    public static void filterVideo(String srcVideoPath,
+                                   @Filter String filter,
+                                   String outputPath,
+                                   Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        setAudio(commandList);
+        setVideo(commandList);
+        commandList.add("-vf");
+        commandList.add(filter);
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
+
+
+//    String filter_4 = "rotate=A*sin(2*PI/T*t)";
+
 }

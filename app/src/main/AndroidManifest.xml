@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".edit.video.AudioDeMuxActivity"></activity>
+        <activity android:name=".edit.video.VideoFilterActivity"></activity>
+        <activity android:name=".edit.video.AudioDeMuxActivity" />
         <activity android:name=".edit.video.VideoDeMuxActivity" />
         <activity android:name=".edit.video.VideoNoWaterMarkActivity" />
 

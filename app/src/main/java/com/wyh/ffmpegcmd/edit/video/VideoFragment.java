@@ -55,6 +55,8 @@ public class VideoFragment extends Fragment {
                 AudioDeMuxActivity.TITLE, AudioDeMuxActivity.class));
         mEditItemList.add(new EditItem(R.drawable.ic_demux_video_black_24dp,
                 VideoDeMuxActivity.TITLE, VideoDeMuxActivity.class));
+        mEditItemList.add(new EditItem(R.drawable.ic_filter_black_24dp,
+                VideoFilterActivity.TITLE, VideoFilterActivity.class));
     }
 
     @Nullable

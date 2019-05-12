@@ -1,7 +1,6 @@
 package com.wyh.ffmpegcmd.edit;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +47,10 @@ public abstract class BaseEditActivity extends AppCompatActivity {
 
     protected Toolbar mToolbar;
     protected View mRoot;
+
+    private Boolean mShowSaveDoneAndPlayDialog;
+    private String mOutputPath;
+    private boolean mIsVideo;
 
 
     @Override
@@ -172,22 +176,16 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         }
     }
 
-    protected void playAudio(String path) {
-        play(path, "audio/*");
-    }
-
-    protected void playVideo(String path) {
-        play(path, "video/*");
-    }
-
-    protected void play(String path, String filter) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        File file = new File(path);
-        Uri contentUri = FileProvider.getUriForFile(App.get(), BuildConfig.APPLICATION_ID + ".fileProvider", file);
-        intent.setDataAndType(contentUri, filter);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        startActivity(intent);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mShowSaveDoneAndPlayDialog != null) {
+            if (mShowSaveDoneAndPlayDialog) {
+                if (!TextUtils.isEmpty(mOutputPath)) {
+                    showSaveDoneAndPlayDialog(mOutputPath, mIsVideo);
+                }
+            }
+        }
     }
 
     protected void showSaveDoneAndPlayDialog(final String outputAudio, final boolean video) {
@@ -203,6 +201,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
                         dialog1.dismiss();
+                        mShowSaveDoneAndPlayDialog = false;
                     }
                 });
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
@@ -210,6 +209,9 @@ public abstract class BaseEditActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
                         dialog1.dismiss();
+                        mShowSaveDoneAndPlayDialog = true;
+                        mIsVideo = video;
+                        mOutputPath = outputAudio;
                         if (video) {
                             playVideo(outputAudio);
                         } else {
@@ -227,9 +229,26 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.create();
         alertDialog.show();
-
     }
 
+
+    protected void playAudio(String path) {
+        play(path, "audio/*");
+    }
+
+    protected void playVideo(String path) {
+        play(path, "video/*");
+    }
+
+    protected void play(String path, String filter) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        File file = new File(path);
+        Uri contentUri = FileProvider.getUriForFile(App.get(), BuildConfig.APPLICATION_ID + ".fileProvider", file);
+        intent.setDataAndType(contentUri, filter);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        startActivity(intent);
+    }
 
     /**
      * 设置正在加载框文字
