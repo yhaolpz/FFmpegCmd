@@ -42,8 +42,9 @@ void callJavaMethod(const char *log) {
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegJni_getLog(JNIEnv *env, jclass type) {
-    if (m_avlog != NULL) {
+    if (m_avlog != NULL && m_avlog != nullptr) {
         return stoJstring(env, m_avlog);
+//        return env->NewStringUTF(m_avlog);
     } else {
         return NULL;
     }

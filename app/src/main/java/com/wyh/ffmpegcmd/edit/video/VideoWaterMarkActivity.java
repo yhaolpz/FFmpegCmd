@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.View;
 
 import com.wyh.ffmpegcmd.R;
+import com.wyh.ffmpegcmd.common.App;
+import com.wyh.ffmpegcmd.common.VideoUtil;
 import com.wyh.ffmpegcmd.edit.BaseEditActivity;
 import com.wyh.ffmpegcmd.edit.EditMediaListActivity;
 import com.wyh.ffmpegcmd.edit.ItemMediaAdapter;
@@ -40,12 +42,8 @@ public class VideoWaterMarkActivity extends EditMediaListActivity {
     @Override
     protected void createOptionsMenu(Menu menu) {
         menu.add("选择视频");
-        menu.add("选择水印");
         menu.add("删除");
-        menu.add("生成左上角水印");
-        menu.add("生成右上角水印");
-        menu.add("生成左下角水印");
-        menu.add("生成右下角水印");
+        menu.add("添加水印");
     }
 
     @Override
@@ -59,50 +57,38 @@ public class VideoWaterMarkActivity extends EditMediaListActivity {
             }
             pickVideo();
         } else if (order == 1) {
-            for (MediaFile file : mMediaFileList) {
-                if (file.getType() == MediaFile.TYPE_IMG) {
-                    SnackBarUtil.showError(mRoot, "已经选择水印了");
-                    return;
-                }
-            }
-            pickImg();
-        } else if (order == 2) {
             deleteLastMediaFile();
         } else {
-            if (mMediaFileList.size() < 2) {
-                SnackBarUtil.showError(mRoot, "未选择视频/水印");
+            if (mMediaFileList.size() == 0) {
+                SnackBarUtil.showError(mRoot, "未选择视频");
                 return;
             }
             showLoadingDialog();
-            MediaFile video = null;
-            MediaFile img = null;
-            for (MediaFile file : mMediaFileList) {
-                if (file.getType() == MediaFile.TYPE_IMG) {
-                    img = file;
-                }
-                if (file.getType() == MediaFile.TYPE_VIDEO) {
-                    video = file;
-                }
+
+            File file = new File(FileUtil.OUTPUT_VIDEO_DIR + File.separator +
+                    "watermark.jpg");
+            if (!file.exists()) {
+                FileUtil.copyFromAssets(App.get(), "mark.jpg", file.getAbsolutePath());
             }
             final String output = FileUtil.OUTPUT_VIDEO_DIR + File.separator +
-                    "watermark_" + DateUtil.format(new Date()) + ".mp4";
-            FFmpegVideo.addWaterMark2(video.getPath(), img.getPath(), order - 3, output, new Callback() {
-                @Override
-                public void onSuccess() {
-                    dismissLoadingDialog();
-                    showSaveDoneAndPlayDialog(output, true);
-                }
+                    "watermark_" + TAG + ".mp4";
+            FFmpegVideo.addWaterMark2(mMediaFileList.get(0).getPath(),
+                    file.getAbsolutePath(), 1, output, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            dismissLoadingDialog();
+                            showSaveDoneAndPlayDialog(output, true);
+                        }
 
-                @Override
-                public void onLog(String log) {
+                        @Override
+                        public void onLog(String log) {
+                        }
 
-                }
-
-                @Override
-                public void onFail() {
-                    dismissLoadingDialog();
-                }
-            });
+                        @Override
+                        public void onFail() {
+                            dismissLoadingDialog();
+                        }
+                    });
         }
     }
 

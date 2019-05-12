@@ -24,7 +24,7 @@ import java.util.List;
 
 public class VideoDeMuxActivity extends EditMediaListActivity {
     private static final String TAG = "VideoDeMuxActivity";
-    public static final String TITLE = "视频分离";
+    public static final String TITLE = "提取视频";
 
     @Override
     protected String getEditTitle() {

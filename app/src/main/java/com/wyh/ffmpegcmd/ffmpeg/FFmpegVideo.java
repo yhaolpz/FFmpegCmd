@@ -8,6 +8,25 @@ import java.util.List;
  */
 public class FFmpegVideo {
 
+    private static void setBiterate(List<String> commandList) {
+        commandList.add("-b:v");
+        commandList.add("1500k");
+        commandList.add("-bufsize");
+        commandList.add("1500k");
+        commandList.add("-maxrate");
+        commandList.add("2000k");
+    }
+
+    private static void scale(List<String> commandList) {
+        commandList.add("-vf");
+        commandList.add("scale=720:720/a");
+    }
+
+    private static void setH264(List<String> commandList) {
+        commandList.add("-c:v");
+        commandList.add("libx264");
+    }
+
     public static void mixVideo(List<String> videoPathList, String outputPath, Callback callback) {
         ArrayList<String> commandList = new ArrayList<>();
         commandList.add("ffmpeg");
@@ -25,8 +44,6 @@ public class FFmpegVideo {
         }
         commandList.add("-map");
         commandList.add("[vid]");
-        commandList.add("-c:v");
-        commandList.add("libx264");
         commandList.add("-crf");
         commandList.add("23");
         commandList.add("-preset");
@@ -62,7 +79,6 @@ public class FFmpegVideo {
                 commandList.add("overlay=main_w-overlay_w-10:main_h-overlay_h-10");
                 break;
         }
-
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }
@@ -145,6 +161,24 @@ public class FFmpegVideo {
         commandList.add("-vcodec");
         commandList.add("copy");
         commandList.add("-an");
+        commandList.add(outputPath);
+        FFmpeg.getInstance().run(commandList, callback);
+    }
+
+    /**
+     * @param vertical 上下翻转
+     */
+    public static void flipVideo(String srcVideoPath, String outputPath, boolean vertical, Callback callback) {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(srcVideoPath);
+        commandList.add("-vf");
+        if (vertical) {
+            commandList.add("vflip");
+        } else {
+            commandList.add("hflip");
+        }
         commandList.add(outputPath);
         FFmpeg.getInstance().run(commandList, callback);
     }

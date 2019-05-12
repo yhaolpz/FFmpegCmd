@@ -56,7 +56,8 @@ public class VideoPuzzActivity extends EditMediaListActivity {
 
 
     private void run(List<MediaFile> mediaFileList) {
-        final long duration = getLongVideoDuration(mediaFileList);
+//        final long duration = getLongVideoDuration(mediaFileList);
+        final long duration = -1;
         if (duration < 0) {
             showLoadingDialog();
         } else {

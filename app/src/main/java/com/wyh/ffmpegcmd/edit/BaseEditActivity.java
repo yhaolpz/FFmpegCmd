@@ -27,6 +27,7 @@ import com.wyh.ffmpegcmd.common.App;
 import com.wyh.ffmpegcmd.common.SaveProgressDialog;
 import com.wyh.ffmpegcmd.common.SecureAlertDialog;
 import com.wyh.ffmpegcmd.common.SecureProgressDialog;
+import com.wyh.ffmpegcmd.common.VideoUtil;
 import com.wyh.ffmpegcmd.util.FileUtil;
 import com.wyh.ffmpegcmd.util.SnackBarUtil;
 
@@ -193,6 +194,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         if (isFinishing() || isDestroyed()) {
             return;
         }
+        VideoUtil.scanFile(outputAudio);
         final SecureAlertDialog alertDialog = new SecureAlertDialog(this);
         alertDialog.setTitle("成功");
         alertDialog.setMessage("已保存至：" + outputAudio);

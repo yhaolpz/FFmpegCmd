@@ -8,6 +8,7 @@ import com.wyh.ffmpegcmd.common.App;
 import com.wyh.ffmpegcmd.common.AppExecutors;
 import com.wyh.ffmpegcmd.common.Logger;
 import com.wyh.ffmpegcmd.common.PermissionHelper;
+import com.wyh.ffmpegcmd.common.VideoUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +32,7 @@ enum FFmpeg {
     }
 
     FFmpeg() {
-        AppExecutors.executeWork(mProgressRunnable);
+//        AppExecutors.executeWork(mProgressRunnable);
     }
 
     private Callback mCallback;
@@ -96,6 +97,7 @@ enum FFmpeg {
                 if (isRunning()) {
                     if (mCallback != null) {
                         String log = FFmpegJni.getLog();
+                        Logger.d("FFmpeg", log);
                         mCallback.onLog(log);
                     }
                 }
