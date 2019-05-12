@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wyh.ffmpegcmd.R;
+import com.wyh.ffmpegcmd.common.Click;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,20 @@ public abstract class EditMediaListActivity extends BaseEditActivity {
         mMediaFileList = new ArrayList<>();
         mAdapter = new ItemMediaAdapter(mMediaFileList);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setEditItemOnClickListener(new Click.OnObjectClickListener<MediaFile>() {
+            @Override
+            public void onObjectClick(MediaFile mediaFile) {
+                onMediaFileClick(mediaFile);
+            }
+        });
+    }
+
+    protected void onMediaFileClick(@NonNull MediaFile mediaFile) {
+        if (mediaFile.getType() == MediaFile.TYPE_VIDEO) {
+            playVideo(mediaFile.getPath());
+        } else if (mediaFile.getType() == MediaFile.TYPE_AUDIO) {
+            playAudio(mediaFile.getPath());
+        }
     }
 
 

@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wyh.ffmpegcmd.R;
 import com.wyh.ffmpegcmd.common.Click;
-import com.wyh.ffmpegcmd.util.DeviceUtil;
-import com.wyh.ffmpegcmd.util.ViewUtil;
 
 import java.util.List;
 
@@ -72,6 +70,7 @@ public class ItemMediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             mIvMedia = itemView.findViewById(R.id.iv_media);
             mTvMediaTitle = itemView.findViewById(R.id.tv_media_title);
             mTvMediaPath = itemView.findViewById(R.id.tv_media_path);
+            itemView.setOnClickListener(ItemMediaAdapter.this);
         }
 
         void bind(MediaFile mediaFile, int pos) {
@@ -88,6 +87,7 @@ public class ItemMediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             mTvMediaPath.setText(mediaFile.getPath());
             mTvMediaTitle.setText(mediaFile.getName());
+            itemView.setTag(mediaFile);
         }
     }
 }
