@@ -62,6 +62,10 @@ public class AudioMixActivity extends EditMediaListActivity {
                 dismissLoadingDialog();
                 showSaveDoneAndPlayDialog(outputAudio, false);
             }
+            @Override
+            public void onLog(String log) {
+
+            }
 
             @Override
             public void onFail() {

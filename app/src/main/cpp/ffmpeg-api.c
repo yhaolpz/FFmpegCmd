@@ -1,5 +1,6 @@
 //
-// Created by meitu on 2019/4/3.
+// Created by wyh on 2019/4/3.
+#include "ffmpeg-api.h"
 #include <jni.h>
 #include "android_log.h"
 
@@ -10,7 +11,7 @@ AVFormatContext *ic;
 int video_stream_idx;
 
 JNIEXPORT jint JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1open(JNIEnv *env, jclass type, jstring url_) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi_open(JNIEnv *env, jclass type, jstring url_) {
     const char *videoUrl = NULL;
     videoUrl = (*env)->GetStringUTFChars(env, url_, NULL);
     LOGE("FFmpegApi_open_video url : %s", videoUrl);
@@ -28,7 +29,7 @@ Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1open(JNIEnv *env, jclass type, jstring
 }
 
 JNIEXPORT jdouble JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoRotation(JNIEnv *env, jclass type) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi_getVideoRotation(JNIEnv *env, jclass type) {
     if (video_stream_idx >= 0) {
         AVStream *video_stream = ic->streams[video_stream_idx];
         return get_rotation(video_stream);
@@ -38,12 +39,12 @@ Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoRotation(JNIEnv *env, jclass t
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoDuration(JNIEnv *env, jclass type) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi_getDuration(JNIEnv *env, jclass type) {
     return av_rescale(ic->duration, 1000, AV_TIME_BASE);
 }
 
 JNIEXPORT jint JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoWidth(JNIEnv *env, jclass type) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi_getVideoWidth(JNIEnv *env, jclass type) {
     if (video_stream_idx >= 0) {
         AVStream *video_stream = ic->streams[video_stream_idx];
         return video_stream->codecpar->width;
@@ -53,7 +54,7 @@ Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoWidth(JNIEnv *env, jclass type
 }
 
 JNIEXPORT jint JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoHeight(JNIEnv *env, jclass type) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi_getVideoHeight(JNIEnv *env, jclass type) {
     if (video_stream_idx >= 0) {
         AVStream *video_stream = ic->streams[video_stream_idx];
         return video_stream->codecpar->height;
@@ -63,7 +64,7 @@ Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoHeight(JNIEnv *env, jclass typ
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi__1getVideoCodecName(JNIEnv *env, jclass type) {
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegApi_getVideoCodecName(JNIEnv *env, jclass type) {
     if (video_stream_idx >= 0) {
         AVStream *video_stream = ic->streams[video_stream_idx];
         const char *codec_name = avcodec_get_name(video_stream->codecpar->codec_id);

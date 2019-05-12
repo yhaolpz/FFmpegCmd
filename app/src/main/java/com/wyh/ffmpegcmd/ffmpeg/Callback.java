@@ -5,6 +5,8 @@ package com.wyh.ffmpegcmd.ffmpeg;
  */
 public interface Callback {
 
+    void onLog(String log);
+
     void onSuccess();
 
     void onFail();

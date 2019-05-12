@@ -5,16 +5,24 @@
 #include "ffmpeg.h"
 #include "j4a_base.h"
 
-static jclass m_clazz = NULL;//当前类(面向java)
-static JNIEnv *m_env = NULL;
+static const char *m_avlog = NULL;
+
+jstring stoJstring(JNIEnv *env, const char *pat) {
+    jclass strClass = env->FindClass("java/lang/String");
+    jmethodID ctorID = env->GetMethodID(strClass, "<init>", "([BLjava/lang/String;)V");
+    jbyteArray bytes = env->NewByteArray(strlen(pat));
+    env->SetByteArrayRegion(bytes, 0, strlen(pat), (jbyte *) pat);
+    jstring encoding = env->NewStringUTF("utf-8");
+    auto finalJstring = (jstring) env->NewObject(strClass, ctorID, bytes, encoding);
+    env->DeleteLocalRef(strClass);
+    env->DeleteLocalRef(bytes);
+    env->DeleteLocalRef(encoding);
+    return finalJstring;
+}
 
 extern "C"
 JNIEXPORT jint JNICALL
 Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegJni_execute(JNIEnv *env, jclass type, jobjectArray commands) {
-
-    m_clazz = type;
-    m_env = env;
-
     int argc = env->GetArrayLength(commands);
     char *argv[argc];
     int i;
@@ -28,15 +36,16 @@ Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegJni_execute(JNIEnv *env, jclass type, jobjec
 
 extern "C"
 void callJavaMethod(const char *log) {
-    if (m_clazz == NULL) {
-        LOGE("---------------clazz isNULL---------------");
-        return;
-    }
-    jmethodID methodID = m_env->GetStaticMethodID(m_clazz, "onProgress", "(I)V");
-    if (methodID == NULL) {
-        LOGE("---------------methodID isNULL---------------");
-        return;
-    }
-    XLOGD("%s", log);
-    m_env->CallStaticVoidMethod(m_clazz, methodID, 1);
+    m_avlog = log;
 }
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_wyh_ffmpegcmd_ffmpeg_FFmpegJni_getLog(JNIEnv *env, jclass type) {
+    if (m_avlog != NULL) {
+        return stoJstring(env, m_avlog);
+    } else {
+        return NULL;
+    }
+}
+

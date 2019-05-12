@@ -5,7 +5,8 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.wyh.ffmpegcmd.common.App;
-import com.wyh.ffmpegcmd.AppExecutor;
+import com.wyh.ffmpegcmd.common.AppExecutors;
+import com.wyh.ffmpegcmd.common.Logger;
 import com.wyh.ffmpegcmd.common.PermissionHelper;
 
 import java.util.List;
@@ -23,14 +24,17 @@ enum FFmpeg {
         return instance;
     }
 
-    private final ExecutorService mExecutor =
-            Executors.newSingleThreadExecutor(new AppExecutor.ExecutorsThreadFactory("ffmpeg"));
-
     private volatile boolean mIsRunning = false;
 
     boolean isRunning() {
         return mIsRunning;
     }
+
+    FFmpeg() {
+        AppExecutors.executeWork(mProgressRunnable);
+    }
+
+    private Callback mCallback;
 
     void run(@NonNull List<String> list, @Nullable final Callback callback) {
         String[] commands = new String[list.size()];
@@ -38,9 +42,9 @@ enum FFmpeg {
         run(commands, callback);
     }
 
-    void run(@NonNull final String[] cmd, @Nullable final Callback callback) {
+    private void run(@NonNull final String[] cmd, @Nullable final Callback callback) {
         if (!PermissionHelper.hasWriteAndReadStoragePermission(App.get())) {
-            AppExecutor.executeMain(new Runnable() {
+            AppExecutors.executeMain(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(App.get(), "请开启读写权限！", Toast.LENGTH_SHORT).show();
@@ -52,7 +56,8 @@ enum FFmpeg {
         if (mIsRunning) {
             throw new IllegalStateException("FFmpeg IsRunning");
         }
-        mExecutor.execute(new Runnable() {
+        mCallback = callback;
+        AppExecutors.executeWork(new Runnable() {
             @Override
             public void run() {
                 mIsRunning = true;
@@ -70,7 +75,7 @@ enum FFmpeg {
 
     private void done(final Callback callback, final boolean success) {
         if (callback != null) {
-            AppExecutor.executeMain(new Runnable() {
+            AppExecutors.executeMain(new Runnable() {
                 @Override
                 public void run() {
                     if (success) {
@@ -84,4 +89,22 @@ enum FFmpeg {
     }
 
 
+    private final Runnable mProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            for (; ; ) {
+                if (isRunning()) {
+                    if (mCallback != null) {
+                        String log = FFmpegJni.getLog();
+                        mCallback.onLog(log);
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 }

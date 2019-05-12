@@ -134,6 +134,11 @@ public class VideoNoWaterMarkActivity extends EditMediaListActivity {
                     }
 
                     @Override
+                    public void onLog(String log) {
+
+                    }
+
+                    @Override
                     public void onFail() {
                         dismissLoadingDialog();
                         KeyBoardUtil.hideSoftKeyboard(VideoNoWaterMarkActivity.this);

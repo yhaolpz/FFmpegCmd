@@ -70,6 +70,10 @@ public class AudioDeMuxActivity extends EditMediaListActivity {
                 dismissLoadingDialog();
                 showSaveDoneAndPlayDialog(output, false);
             }
+            @Override
+            public void onLog(String log) {
+
+            }
 
             @Override
             public void onFail() {

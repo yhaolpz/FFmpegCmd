@@ -18,9 +18,6 @@ public final class FFmpegJni {
 
     public static native int execute(String[] commands);
 
-
-    public static void onProgress(int progress) {
-        Logger.d(progress+"");
-    }
+    public static native String getLog();
 
 }

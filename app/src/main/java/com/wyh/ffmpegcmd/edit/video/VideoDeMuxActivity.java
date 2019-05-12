@@ -70,6 +70,11 @@ public class VideoDeMuxActivity extends EditMediaListActivity {
             }
 
             @Override
+            public void onLog(String log) {
+
+            }
+
+            @Override
             public void onFail() {
                 dismissLoadingDialog();
 

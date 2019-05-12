@@ -1,6 +1,7 @@
 package com.wyh.ffmpegcmd.edit;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.wyh.ffmpegcmd.BuildConfig;
 import com.wyh.ffmpegcmd.R;
 import com.wyh.ffmpegcmd.common.App;
+import com.wyh.ffmpegcmd.common.SaveProgressDialog;
 import com.wyh.ffmpegcmd.common.SecureAlertDialog;
 import com.wyh.ffmpegcmd.common.SecureProgressDialog;
 import com.wyh.ffmpegcmd.util.FileUtil;
@@ -36,6 +38,7 @@ import java.io.File;
 public abstract class BaseEditActivity extends AppCompatActivity {
 
     private SecureProgressDialog mProgressDialog;
+    private SaveProgressDialog mSaveProgressDialog;
     private static final int REQUEST_CODE_Permission = 1;
     protected static final int REQUEST_CODE_PICK_AUDIO = MediaFile.TYPE_AUDIO;
     protected static final int REQUEST_CODE_PICK_VIDEO = MediaFile.TYPE_VIDEO;
@@ -280,6 +283,22 @@ public abstract class BaseEditActivity extends AppCompatActivity {
         }
     }
 
+    protected void showProgressDialog(int progress) {
+        if (mSaveProgressDialog == null) {
+            mSaveProgressDialog = SaveProgressDialog.getInstance(this);
+        }
+        if (!mSaveProgressDialog.isShowing()) {
+            mSaveProgressDialog.show();
+        }
+        mSaveProgressDialog.updateProgress(progress);
+    }
+
+    protected void dismissProgressDialog() {
+        if (mSaveProgressDialog != null) {
+            mSaveProgressDialog.dismiss();
+            mSaveProgressDialog = null;
+        }
+    }
 
     protected void showErrorSnack(String msg) {
         SnackBarUtil.showError(mRoot, msg);

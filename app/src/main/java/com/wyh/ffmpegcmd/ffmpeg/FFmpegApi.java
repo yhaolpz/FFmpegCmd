@@ -4,44 +4,44 @@ public class FFmpegApi {
     private static final String TAG = "FFmpegApi";
 
     /*
-    * 获取视频信息步骤：
-    * 1.open(String url)
-    * 2.getXXX()
-    * 3.close
-    **/
-    public static boolean open(String url) {
-        int ret = _open(url);
+     * 获取视频信息步骤：
+     * 1.open(String url)
+     * 2.getXXX()
+     * 3.close
+     **/
+    public static boolean openVideo(String url) {
+        int ret = open(url);
         return ret >= 0;
     }
 
     //ms
-    public static long getVideoDuration() {
-        return _getVideoDuration();
+    public static long getDuration() {
+        return getVideoDuration();
     }
 
-    public static int getVideoWidth() {
-        return _getVideoWidth();
+    public static int getWidth() {
+        return getVideoWidth();
     }
 
-    public static int getVideoHeight() {
-        return _getVideoHeight();
+    public static int getHeight() {
+        return getVideoHeight();
     }
 
-    public static double getVideoRotation() {
-        return _getVideoRotation();
+    public static double getRotation() {
+        return getVideoRotation();
     }
 
-    public static native double _getVideoRotation();
+    public static native double getVideoRotation();
 
-    public static native int _open(String url);
+    public static native int open(String url);
 
-    private static native long _getVideoDuration();
+    private static native long getVideoDuration();
 
-    public static native int _getVideoWidth();
+    public static native int getVideoWidth();
 
-    public static native int _getVideoHeight();
+    public static native int getVideoHeight();
 
-    public static native String _getVideoCodecName();
+    public static native String getVideoCodecName();
 
     public static native void close();
 

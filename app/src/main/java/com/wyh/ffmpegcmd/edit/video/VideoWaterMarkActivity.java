@@ -94,6 +94,11 @@ public class VideoWaterMarkActivity extends EditMediaListActivity {
                 }
 
                 @Override
+                public void onLog(String log) {
+
+                }
+
+                @Override
                 public void onFail() {
                     dismissLoadingDialog();
                 }
