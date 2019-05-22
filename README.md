@@ -4,4 +4,8 @@
 
 ![111.png](https://upload-images.jianshu.io/upload_images/4679478-7de6fd06af639e13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300)
 
+
+
+下载试用：https://fir.im/f3vd
+
 基于 https://github.com/yhaolpz/FFmpeg
