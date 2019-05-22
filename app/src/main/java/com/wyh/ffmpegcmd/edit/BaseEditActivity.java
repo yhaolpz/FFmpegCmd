@@ -121,9 +121,9 @@ public abstract class BaseEditActivity extends AppCompatActivity {
 
     private void pickMedia(final String filter, int code) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType(filter);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, code);
+        intent.setType(filter);
+        startActivityForResult(Intent.createChooser(intent, "Select"), code);
     }
 
     @Override
@@ -158,7 +158,7 @@ public abstract class BaseEditActivity extends AppCompatActivity {
     }
 
     private void requestWritePermissions() {
-        if (hasWritePermissions()) {
+        if (!hasWritePermissions()) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_Permission);
         }

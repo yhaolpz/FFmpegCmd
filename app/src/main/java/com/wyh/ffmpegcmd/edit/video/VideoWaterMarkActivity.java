@@ -1,30 +1,16 @@
 package com.wyh.ffmpegcmd.edit.video;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.View;
 
-import com.wyh.ffmpegcmd.R;
 import com.wyh.ffmpegcmd.common.App;
-import com.wyh.ffmpegcmd.common.VideoUtil;
-import com.wyh.ffmpegcmd.edit.BaseEditActivity;
 import com.wyh.ffmpegcmd.edit.EditMediaListActivity;
-import com.wyh.ffmpegcmd.edit.ItemMediaAdapter;
 import com.wyh.ffmpegcmd.edit.MediaFile;
 import com.wyh.ffmpegcmd.ffmpeg.Callback;
 import com.wyh.ffmpegcmd.ffmpeg.FFmpegVideo;
-import com.wyh.ffmpegcmd.util.DateUtil;
 import com.wyh.ffmpegcmd.util.FileUtil;
 import com.wyh.ffmpegcmd.util.SnackBarUtil;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by wyh on 2019/3/18.
@@ -72,7 +58,7 @@ public class VideoWaterMarkActivity extends EditMediaListActivity {
             }
             final String output = FileUtil.OUTPUT_VIDEO_DIR + File.separator +
                     "watermark_" + TAG + ".mp4";
-            FFmpegVideo.addWaterMark2(mMediaFileList.get(0).getPath(),
+            FFmpegVideo.addWaterMark(mMediaFileList.get(0).getPath(),
                     file.getAbsolutePath(), 1, output, new Callback() {
                         @Override
                         public void onSuccess() {

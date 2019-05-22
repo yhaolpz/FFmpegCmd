@@ -3,12 +3,10 @@ package com.wyh.ffmpegcmd.edit.video;
 import android.view.Menu;
 
 import com.wyh.ffmpegcmd.common.AppExecutors;
-import com.wyh.ffmpegcmd.common.Logger;
 import com.wyh.ffmpegcmd.common.VideoUtil;
 import com.wyh.ffmpegcmd.edit.EditMediaListActivity;
 import com.wyh.ffmpegcmd.edit.MediaFile;
 import com.wyh.ffmpegcmd.ffmpeg.Callback;
-import com.wyh.ffmpegcmd.ffmpeg.FFmpegApi;
 import com.wyh.ffmpegcmd.ffmpeg.FFmpegVideo;
 import com.wyh.ffmpegcmd.util.FileUtil;
 import com.wyh.ffmpegcmd.util.SnackBarUtil;
@@ -112,8 +110,7 @@ public class VideoPuzzActivity extends EditMediaListActivity {
         long ms = -1;
         if (mediaFileList != null) {
             for (MediaFile mediaFile : mediaFileList) {
-                String str = VideoUtil.getVideoDuration(mediaFile.getPath());
-                ms = Math.max(ms, Integer.valueOf(str));
+                ms = Math.max(ms, VideoUtil.getVideoDuration(mediaFile.getPath()));
             }
         }
         return ms;

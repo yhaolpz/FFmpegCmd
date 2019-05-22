@@ -43,9 +43,10 @@ public class FFmpegVideo {
         commandList.add("48k");
     }
 
-    private static void scale(List<String> commandList) {
-        commandList.add("-vf");
-        commandList.add("scale=720:720/a");
+
+    private static void setSize(List<String> commandList) {
+        commandList.add("scale");
+        commandList.add("400x600");
     }
 
     public static void mixVideo(List<String> videoPathList, String outputPath, Callback callback) {
@@ -55,6 +56,8 @@ public class FFmpegVideo {
             commandList.add("-i");
             commandList.add(audioPath);
         }
+        setAudio(commandList);
+        setVideo(commandList);
         commandList.add("-filter_complex");
         if (videoPathList.size() == 2) {
             commandList.add("[0:v]pad=iw*2:ih[int];[int][1:v]overlay=W/2:0[vid]");
@@ -69,45 +72,17 @@ public class FFmpegVideo {
         FFmpeg.getInstance().run(commandList, callback);
     }
 
+
     /**
      * @param pos 0:左上；1右上；2左下；3右下
      */
-    @Deprecated
     public static void addWaterMark(String srcVideoPath, String watermarkImgPath, int pos, String outputPath, Callback callback) {
         ArrayList<String> commandList = new ArrayList<>();
         commandList.add("ffmpeg");
         commandList.add("-i");
         commandList.add(srcVideoPath);
-        commandList.add("-i");
-        commandList.add(watermarkImgPath);
-        commandList.add("-filter_complex");
-
-        switch (pos) {
-            case 0:
-                commandList.add("overlay=10:10");
-                break;
-            case 1:
-                commandList.add("overlay=main_w-overlay_w-10:10");
-                break;
-            case 2:
-                commandList.add("overlay=0:main_h-overlay_h-10");
-                break;
-            case 3:
-                commandList.add("overlay=main_w-overlay_w-10:main_h-overlay_h-10");
-                break;
-        }
-        commandList.add(outputPath);
-        FFmpeg.getInstance().run(commandList, callback);
-    }
-
-    /**
-     * @param pos 0:左上；1右上；2左下；3右下
-     */
-    public static void addWaterMark2(String srcVideoPath, String watermarkImgPath, int pos, String outputPath, Callback callback) {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add("ffmpeg");
-        commandList.add("-i");
-        commandList.add(srcVideoPath);
+        setAudio(commandList);
+        setVideo(commandList);
         commandList.add("-vf");
         String cmd = "movie=";
         cmd += watermarkImgPath;
@@ -143,6 +118,8 @@ public class FFmpegVideo {
         commandList.add("ffmpeg");
         commandList.add("-i");
         commandList.add(srcVideoPath);
+        setAudio(commandList);
+        setVideo(commandList);
         commandList.add("-filter_complex");
         String cmd = "delogo=";
         cmd += "x=" + x;
@@ -190,6 +167,8 @@ public class FFmpegVideo {
         commandList.add("ffmpeg");
         commandList.add("-i");
         commandList.add(srcVideoPath);
+        setAudio(commandList);
+        setVideo(commandList);
         commandList.add("-vf");
         if (vertical) {
             commandList.add("vflip");
