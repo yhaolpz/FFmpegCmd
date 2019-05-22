@@ -3,5 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:autoLink="all"
+        android:background="#000"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:scrollbars="vertical"
+        android:text="@string/about_me"
+        android:textColor="@color/colorAccentLight" />
+
 
 </android.support.constraint.ConstraintLayout>

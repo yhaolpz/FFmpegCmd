@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">FFmpegCmd</string>
+    <string name="app_name">FFEditor</string>
+
+
+    <string name="about_me">
+        \n
+    \t FFEditor 即 FFmpeg Editor，表示基于 FFmpeg 实现。 FFmpeg 是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序，它提供了录制、转换以及流化音视频的完整解决方案，采用 LGPL/GPL 许可证。 \n
+    \t GPL 是 GNU General Public License(GNU 通用公共许可证)的缩写形式；LGPL 是 GNU Lesser General Public License (GNU 宽通用公共许可证)的缩写形式。它们是自由软件(Free Software)的通用版权认证协议。基于 GPL 的软件允许商业化销售，但不允许封闭源代码。如果您对遵循GPL的软件进行任何改动和/或再次开发并予以发布，则您的产品必须继承 GPL 协议，不允许封闭源代码。\n
+    \t 基于 LGPL 的软件也允许商业化销售，但不允许封闭源代码。如果您对遵循 LGPL 的软件进行任何改动和/或再次开发并予以发布，则您的产品必须继承LGPL协议，不允许封闭源代码。但是如果您的程序对遵循 LGPL 的软件进行任何连接、调用而不是包含，则允许封闭源代码。\n
+        \n\n\n\n\n
+        关于我：\n
+     Code：  https://github.com/yhaolpz \n
+     Email： yhaowa@outlook.com \n
+     Blog： https://yhaolpz.github.io \n
+    </string>
+
+
 </resources>
