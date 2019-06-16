@@ -8,4 +8,4 @@
 
 下载试用：https://fir.im/f3vd
 
-基于 https://github.com/yhaolpz/FFmpeg
+FFmpeg so 的编译基于 https://github.com/yhaolpz/FFmpeg/tree/cmd_ffmpeg_app_3.3
